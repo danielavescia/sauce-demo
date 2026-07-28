@@ -1,0 +1,17 @@
+{
+  "name": "sauce-demo",
+  "version": "1.0.0",
+  "description": "This project is and e2e test automation suit built with Cypress for the SauceDemo application(https://www.saucedemo.com/). Its main goals is to validate critical user flows covering key functionalities such as user authentication, product listing , cart management and checkout process.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "e2e"
+  ],
+  "author": "Daniela Vescia",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^15.19.0"
+  }
+}
