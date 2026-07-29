@@ -67,6 +67,12 @@ describe('Login', () => {
 
         cy.assertLoginError('user has been locked out');
     });
+
+     it('should not login with blank spaces in credentials', () => {
+        cy.login('  ', '  ');
+
+        cy.assertLoginError('Username and password do not match any user');
+    });
 });
 
 
