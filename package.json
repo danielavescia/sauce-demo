@@ -4,7 +4,8 @@
   "description": "This project is and e2e test automation suit built with Cypress for the SauceDemo application(https://www.saucedemo.com/). Its main goals is to validate critical user flows covering key functionalities such as user authentication, product listing , cart management and checkout process.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "keywords": [
     "e2e"
