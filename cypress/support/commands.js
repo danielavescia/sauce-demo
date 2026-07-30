@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('login', (username, password) =>{
+    cy.get('[data-test="username"]').type(username);
+    cy.get('[data-test="password"]').type(password);
+    cy.get('[data-test="login-button"]').click();
+});
+
+Cypress.Commands.add('assertLoginError', (errorMessage) => {
+    cy.location('pathname').should('eq', '/');
+    
+    cy.get('[data-test="error"]')
+        .should('be.visible')
+        .and('contain.text', errorMessage);
+});
