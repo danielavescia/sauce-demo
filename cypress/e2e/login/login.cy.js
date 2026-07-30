@@ -7,7 +7,9 @@ describe('Login', () => {
     it('login with valid user', () => {
         cy.login('standard_user', 'secret_sauce');
 
-        cy.url().should('eq', "https://www.saucedemo.com/inventory.html");
+        cy.url().should('include', "/inventory");
+
+        cy.getCookie('session-username').should('have.property','value','standard_user');
     });
 
     it('should not login with invalid username', () => {
@@ -74,8 +76,3 @@ describe('Login', () => {
         cy.assertLoginError('Username and password do not match any user');
     });
 });
-
-
-
-   
-
