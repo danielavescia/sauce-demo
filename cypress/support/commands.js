@@ -31,7 +31,7 @@ Cypress.Commands.add('login', (username, password) =>{
 });
 
 Cypress.Commands.add('assertLoginError', (errorMessage) => {
-    cy.url().should('eq', "https://www.saucedemo.com/");
+    cy.location('pathname').should('eq', '/');
     
     cy.get('[data-test="error"]')
         .should('be.visible')

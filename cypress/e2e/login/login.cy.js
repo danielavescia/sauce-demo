@@ -1,13 +1,12 @@
 describe('Login', () => {
 
     beforeEach(() => {
-         cy.visit('https://www.saucedemo.com/');
+         cy.visit('/');
     })
 
-    it('login with valid user', () => {
+    it('should login with valid user', () => {
         cy.login('standard_user', 'secret_sauce');
-
-        cy.url().should('include', "/inventory");
+        cy.location('pathname').should('include', "/inventory.html")
 
         cy.getCookie('session-username').should('have.property','value','standard_user');
     });
