@@ -37,3 +37,14 @@ Cypress.Commands.add('assertLoginError', (errorMessage) => {
         .should('be.visible')
         .and('contain.text', errorMessage);
 });
+
+Cypress.Commands.add('addProductToCart', () => {
+    cy.url().should('include', '/inventory.html');
+    cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').as('addBackPack')
+    
+    cy.get('@addBackPack')
+        .should('be.visible')
+        .click();
+
+    cy.get('[data-test="remove-sauce-labs-backpack"]').should('be.visible');
+})
