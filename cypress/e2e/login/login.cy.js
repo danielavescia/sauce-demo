@@ -1,4 +1,4 @@
-import LoginPage from "../../support/pages/LoginPage";
+import LoginPage, { loginElements } from "../../support/pages/login.elements";
 
 describe('Login', () => {
 
@@ -49,25 +49,24 @@ describe('Login', () => {
     });
    
     context('when required fields are missing', () => {
-        
+        beforeEach(() => cy.visit('/'));
+
         it('should not login with empty username and password', () => {
-            LoginPage.submit();
-            
+            cy.get(loginElements.submitButton).click();
             cy.assertLoginError(errors.usernameRequired);
         });
 
         it('should not login with empty username', () => {
-            LoginPage.fillPassword('secret_sauce')
-            
-            LoginPage.submit();
+            cy.get(loginElements.passwordField).clear().type('secret_sauce');
+            cy.get(loginElements.submitButton).click();
 
             cy.assertLoginError(errors.usernameRequired);
         });
 
         it('should not login with empty password', () => {
-            LoginPage.fillUsername('standard_user');
-            LoginPage.submit();
-
+            cy.get(loginElements.usernameField).clear().type('standard_user');
+            cy.get(loginElements.submitButton).click();
+            
             cy.assertLoginError(errors.passwordRequired);
         });
     });

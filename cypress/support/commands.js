@@ -24,23 +24,6 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-import LoginPage from "./pages/LoginPage";
-
-Cypress.Commands.add('login', (username, password) =>{
-    LoginPage.visitLogin();
-    LoginPage.fillUsername(username);
-    LoginPage.fillPassword(password);
-    LoginPage.submit();
-});
-
-Cypress.Commands.add('assertLoginError', (errorMessage) => {
-    cy.location('pathname').should('eq', '/');
-    
-    LoginPage.getErrorMessage()
-        .should('be.visible')
-        .and('contain.text', errorMessage);
-});
-
 Cypress.Commands.add('addProductToCart', () => {
     cy.url().should('include', '/inventory.html');
     cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').as('addBackPack')
