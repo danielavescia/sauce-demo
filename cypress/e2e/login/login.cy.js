@@ -1,3 +1,5 @@
+import LoginPage from "../../support/pages/LoginPage";
+
 describe('Login', () => {
 
     const errors = {
@@ -14,10 +16,6 @@ describe('Login', () => {
             users = data;
         })
     }));
-
-    beforeEach(() => {
-         cy.visit('/');
-    });
 
     context('with valid user', () => {
         
@@ -53,23 +51,22 @@ describe('Login', () => {
     context('when required fields are missing', () => {
         
         it('should not login with empty username and password', () => {
-            cy.get('[data-test="login-button"]').click();
+            LoginPage.submit();
             
             cy.assertLoginError(errors.usernameRequired);
         });
 
         it('should not login with empty username', () => {
-            cy.get('[data-test="password"]').type('secret_sauce');
-
-            cy.get('[data-test="login-button"]').click();
+            LoginPage.fillPassword('secret_sauce')
+            
+            LoginPage.submit();
 
             cy.assertLoginError(errors.usernameRequired);
         });
 
         it('should not login with empty password', () => {
-            cy.get('[data-test="username"]').type('standard_user');
-
-            cy.get('[data-test="login-button"]').click();
+            LoginPage.fillUsername('standard_user');
+            LoginPage.submit();
 
             cy.assertLoginError(errors.passwordRequired);
         });

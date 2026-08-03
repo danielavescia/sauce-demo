@@ -24,16 +24,19 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import LoginPage from "./pages/LoginPage";
+
 Cypress.Commands.add('login', (username, password) =>{
-    cy.get('[data-test="username"]').type(username);
-    cy.get('[data-test="password"]').type(password);
-    cy.get('[data-test="login-button"]').click();
+    LoginPage.visitLogin();
+    LoginPage.fillUsername(username);
+    LoginPage.fillPassword(password);
+    LoginPage.submit();
 });
 
 Cypress.Commands.add('assertLoginError', (errorMessage) => {
     cy.location('pathname').should('eq', '/');
     
-    cy.get('[data-test="error"]')
+    LoginPage.getErrorMessage()
         .should('be.visible')
         .and('contain.text', errorMessage);
 });
