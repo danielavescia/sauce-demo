@@ -1,4 +1,4 @@
-exports.checkoutElements ={
+exports.checkoutS1Elements ={
 
     fieldFirstName: '[data-test="firstName"]',
     fieldLastName: '[data-test="lastName"]',
