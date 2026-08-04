@@ -21,7 +21,7 @@ describe('Checkout Step 1 - User information', () => {
     });
 
     beforeEach(() => {
-        cy.login(user.standard.username, user.standard.password);
+        cy.login({username: user.standard.username, password: user.standard.password});
         
         cy.goToCheckoutStepOne();
     })
@@ -38,35 +38,35 @@ describe('Checkout Step 1 - User information', () => {
        
         it('should not proceed to step 2 and error when first name is missing', () => {
             cy. fillAndSubmitCheckoutStep1({
-                lastName : USER_DETAILS.lastName,
+                lastName: USER_DETAILS.lastName,
                 postalCode: USER_DETAILS.postalCode
             });
 
-            cy.validateErrorMessage(ERRORS.firstNameEmpty);
+            cy.assertCheckoutStepOneError(ERRORS.firstNameEmpty);
         });
 
          it('should not proceed to step 2 and show error when last name is missing', () => {
             cy.fillAndSubmitCheckoutStep1({
-                firstName : USER_DETAILS.firstName,
+                firstName: USER_DETAILS.firstName,
                 postalCode: USER_DETAILS.postalCode
             });
 
-            cy.validateErrorMessage(ERRORS.lastNameEmpty);
+            cy.assertCheckoutStepOneError(ERRORS.lastNameEmpty);
         });
 
         it('should not proceed to step 2 and show error when postal code is missing', () => {
             cy.fillAndSubmitCheckoutStep1({
-                firstName : USER_DETAILS.firstName,
+                firstName: USER_DETAILS.firstName,
                 lastName: USER_DETAILS.lastName
             });
 
-            cy.validateErrorMessage(ERRORS.postalCodeEmpty);
+            cy.assertCheckoutStepOneError(ERRORS.postalCodeEmpty);
         });
 
         it('should not proceed  to step 2 and show first name error when all fields are empty', () => {
             cy.fillAndSubmitCheckoutStep1({});
 
-            cy.validateErrorMessage(ERRORS.firstNameEmpty);
+            cy.assertCheckoutStepOneError(ERRORS.firstNameEmpty);
         });
     });
 });

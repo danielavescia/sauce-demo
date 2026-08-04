@@ -18,7 +18,7 @@ Cypress.Commands.add('fillAndSubmitCheckoutStep1', ({firstName = '', lastName = 
     cy.get(checkoutElements.continueButton).click()
 });
 
-Cypress.Commands.add ('validateErrorMessage', (errorMessage) => {
+Cypress.Commands.add ('assertCheckoutStepOneError', (errorMessage) => {
     cy.url().should('include', '/checkout-step-one.html')
     cy.get(checkoutElements.error)
                 .should('be.visible')
