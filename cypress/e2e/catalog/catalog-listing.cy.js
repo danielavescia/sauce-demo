@@ -15,8 +15,8 @@ describe('Catalog', () => {
     });
 
     beforeEach(() => {
-        cy.login(user.standard.username, user.standard.password);
-        cy.getInventoryItems();
+        cy.login({username: user.standard.username,password: user.standard.password});
+        cy.assertOnCatalogPage();
     });
 
     context('when catalog loads', () => {
@@ -38,12 +38,14 @@ describe('Catalog', () => {
 
         it('should display correct data for every know product', () => {
             Object.values(products).forEach((product) => {
-                cy.get(catalogElements.inventoryItem)
-                    .contains(catalogElements.inventoryItem, product.name)
+                cy.contains(catalogElements.inventoryItem, product.name)
                     .within(() => {
                         cy.get(catalogElements.productName).should('have.text', product.name);
+                        
                         cy.get(catalogElements.productDescription).should('have.text', product.description);
+                        
                         cy.get(catalogElements.productPrice).should('have.text', product.price);
+                        
                         cy.get(catalogElements.productImg).should('have.attr', 'src').and('not.be.empty');
                     });
                 });
