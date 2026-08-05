@@ -1,4 +1,4 @@
-describe('Cart', () => {
+describe('Catalog actions', () => {
     let user;
     let products = [];
 
