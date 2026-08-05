@@ -32,7 +32,7 @@ describe('Catalog', () => {
                 cy.wrap($el).find(catalogElements.productName).should('not.be.empty');
                 cy.wrap($el).find(catalogElements.productDescription).should('not.be.empty');
                 cy.wrap($el).find(catalogElements.productPrice).should('not.be.empty').and('contain', '$');
-                cy.wrap($el).find(catalogElements.addToCartButton).should('have.text', 'Add to cart');
+                cy.wrap($el).find('button').should('have.text', 'Add to cart');
               });
         });
 

@@ -23,8 +23,7 @@ describe('Checkout Step 2 - Order Review', () => {
 
     beforeEach(()=> {
        cy.login({username: users.standard.username,password: users.standard.password});
-       cy.assertOnCatalogPage();
-       cy.goToCheckoutStepTwo(USER_DETAILS);
+       cy.goToCheckoutStepTwo(USER_DETAILS, product);
     });
 
     context('when acessing the review step', () => {

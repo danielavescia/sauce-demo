@@ -1,14 +1,16 @@
 const { checkoutS1Elements } = require('../pages/checkout-s1.elements');
+const { checkoutS2Elements } = require('../pages/checkout-s2.elements');
 
-Cypress.Commands.add('goToCheckoutStepOne', () => {
-    cy.addProductToCart();
-    cy.get('[data-test="shopping-cart-link"]').click();
+Cypress.Commands.add('goToCheckoutStepOne', (product) => {
+    cy.assertOnCatalogPage();
+    cy.addProductToCart(product);
+    cy.navigateToCart();
+    cy.assertOnCartPage();
 
-    cy.url().should('include', '/cart.html');
     cy.get('[data-test="inventory-item"]').should('have.length', 1);
 
-    cy.get('[data-test="checkout"]').click();
-    cy.url().should('include', '/checkout-step-one.html');
+    cy.navigateToCheckout();
+    cy.assertOnCheckoutStepOne();
 });
 
 Cypress.Commands.add('fillAndSubmitCheckoutStep1', ({ firstName = '', lastName = '', postalCode =''} = {} ) => {
@@ -19,14 +21,24 @@ Cypress.Commands.add('fillAndSubmitCheckoutStep1', ({ firstName = '', lastName =
 });
 
 Cypress.Commands.add ('assertCheckoutStepOneError', (errorMessage) => {
-    cy.url().should('include', '/checkout-step-one.html')
+    cy.assertOnCheckoutStepOne();
     cy.get(checkoutS1Elements.error)
                 .should('be.visible')
                 .and('have.text', errorMessage);
 });
 
-Cypress.Commands.add('goToCheckoutStepTwo', ({ firstName, lastName, postalCode } = {}) => {
-    cy.goToCheckoutStepOne();
+Cypress.Commands.add('goToCheckoutStepTwo', ({ firstName, lastName, postalCode } = {}, product) => {
+    cy.goToCheckoutStepOne(product);
     cy.fillAndSubmitCheckoutStep1({ firstName, lastName, postalCode });
-    cy.url().should('include', '/checkout-step-two.html');
-})
+    cy.assertOnCheckoutStepTwo();
+});
+
+Cypress.Commands.add('assertOnCheckoutStepOne', () => {
+    cy.url().should('contain', '/checkout-step-one.html');
+    cy.get(checkoutS1Elements.checkoutS1Title).should('have.text', 'Checkout: Your Information');
+});
+
+Cypress.Commands.add('assertOnCheckoutStepTwo', () => {
+    cy.url().should('contain', '/checkout-step-two.html');
+    cy.get(checkoutS2Elements.checkoutS2Title).should('have.text', 'Checkout: Overview');
+});

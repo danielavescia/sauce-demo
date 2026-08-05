@@ -6,5 +6,5 @@ exports.catalogElements ={
     productName: '[data-test="inventory-item-name"]',
     productDescription: '[data-test="inventory-item-desc"]',
     productPrice: '[data-test="inventory-item-price"]',
-    addToCartButton: 'button',
+    cartButton: '[data-test="shopping-cart-link"]',
 };

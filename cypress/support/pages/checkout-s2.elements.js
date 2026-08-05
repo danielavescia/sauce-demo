@@ -1,5 +1,5 @@
 exports.checkoutS2Elements = {
-    s2Title: '[data-test="title"]',
+    checkoutS2Title: '[data-test="title"]',
     productList: '[data-test="cart-list"]',
     product: '[data-test="inventory-item"]',
     productQnt: '[data-test="item-quantity"]',
