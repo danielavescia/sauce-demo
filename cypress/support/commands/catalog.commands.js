@@ -6,7 +6,7 @@ Cypress.Commands.add('assertOnCatalogPage', () => {
 });
 
 Cypress.Commands.add('removeProductFromCart', (product)=> {
-    cy.get(catalogElements.inventoryItem, product.name)
+    cy.contains(catalogElements.inventoryItem, product.name)
         .find('button')
         .contains('Remove')
         .click();
@@ -20,19 +20,28 @@ Cypress.Commands.add('addProductToCart', (product) => {
 });
 
 Cypress.Commands.add('assertRemoveButtonVisible', (product) => {
-    cy.get(catalogElements.inventoryItem, product.name)
+    cy.contains(catalogElements.inventoryItem, product.name)
         .find('button')
         .should('have.text', 'Remove')
         .and('be.visible')
 });
 
 Cypress.Commands.add('assertAddTButtonVisible', (product) => {
-   cy.get(catalogElements.inventoryItem, product.name)
+   cy.contains(catalogElements.inventoryItem, product.name)
         .find('button')
-        .should('have.text', 'Add to Cart')
+        .should('have.text', 'Add to cart')
         .and('be.visible')
 });
+
+Cypress.Commands.add('assertProductQntBadge', (quantity) => {
+    cy.get(catalogElements.qntBadge).should('have.text', quantity);
+});
+
+Cypress.Commands.add('assertProductQntBadgeNotVisible', () => {
+    cy.get(catalogElements.qntBadge).should('not.exist');
+})
 
 Cypress.Commands.add('navigateToCart', () => {
     cy.get(catalogElements.cartButton).click()
 });
+

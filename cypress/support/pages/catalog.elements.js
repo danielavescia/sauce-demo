@@ -7,4 +7,5 @@ exports.catalogElements ={
     productDescription: '[data-test="inventory-item-desc"]',
     productPrice: '[data-test="inventory-item-price"]',
     cartButton: '[data-test="shopping-cart-link"]',
+    qntBadge: '[data-test="shopping-cart-badge"]'
 };
