@@ -1,5 +1,5 @@
-const { checkoutS2Elements } = require("../../support/pages/checkout-s2.elements");
-import { calculateTotal } from '../../support/helpers/helper'
+import  { checkoutS2Elements } from '../../support/pages/checkout-s2.elements';
+import  { calculateTotal } from '../../support/helpers/helper';
 
 describe('Checkout Step 2 - Order Review', () => {
     

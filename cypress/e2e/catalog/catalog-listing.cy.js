@@ -1,4 +1,4 @@
-const { catalogElements } = require("../../support/pages/catalog.elements");
+import { catalogElements } from '../../support/pages/catalog.elements';
 
 describe('Catalog', () => {
     
