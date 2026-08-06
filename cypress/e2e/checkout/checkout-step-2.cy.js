@@ -14,7 +14,7 @@ describe('Checkout Step 2 - Order Review', () => {
 
     before(() => {
         cy.fixture('users').then((usersData) => {
-            users = usersData;
+            users = usersData.standard;
         });
         cy.fixture('products').then((productsData)=> {
             product = productsData.backpack;
@@ -22,7 +22,7 @@ describe('Checkout Step 2 - Order Review', () => {
     });
 
     beforeEach(()=> {
-       cy.login({username: users.standard.username,password: users.standard.password});
+       cy.login({username: users.username,password: users.password});
        cy.goToCheckoutStepTwo(USER_DETAILS, product);
     });
 
