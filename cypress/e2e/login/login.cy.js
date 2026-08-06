@@ -1,5 +1,3 @@
-import LoginPage, { loginElements } from "../../support/pages/login.elements";
-
 describe('Login', () => {
 
     const errors = {
@@ -18,17 +16,14 @@ describe('Login', () => {
     }));
 
     context('with valid user', () => {
-        
         it('should login with valid user', () => {
             cy.login({username: users.standard.username, password: users.standard.password});
-            cy.location('pathname').should('include', "/inventory.html")
-
+            cy.assertOnCatalogPage();
             cy.getCookie('session-username').should('have.property','value','standard_user');
         });
     });
 
     context('with invalid credentials', () => {
-        
         it('should not login with invalid username', () => {
             cy.login({username:'user', password: users.standard.password});
 
@@ -49,8 +44,6 @@ describe('Login', () => {
     });
    
     context('when required fields are missing', () => {
-        beforeEach(() => cy.visit('/'));
-
         it('should not login with empty username and password', () => {
             cy.login();
            
@@ -71,7 +64,6 @@ describe('Login', () => {
     });
    
     context('when input format is invalid', () => {
-
         it('should not login with uppercase credentials', () => {
             cy.login({username: users.standard.username.toUpperCase(), password: users.standard.password.toUpperCase()});
 
@@ -92,7 +84,6 @@ describe('Login', () => {
     });
 
     context('when user has restrictions', () => {
-
         it('should not login with locked out user', () => {
             cy.login({username: users.lockedOut.username, password: users.lockedOut.password});
 
