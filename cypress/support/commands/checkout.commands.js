@@ -1,3 +1,4 @@
+import { catalogElements } from '../pages/catalog.elements';
 import { checkoutS1Elements } from '../pages/checkout-s1.elements';
 import { checkoutS2Elements } from '../pages/checkout-s2.elements';
 
@@ -7,7 +8,7 @@ Cypress.Commands.add('goToCheckoutStepOne', (product) => {
     cy.navigateToCart();
     cy.assertOnCartPage();
 
-    cy.get('[data-test="inventory-item"]').should('have.length', 1);
+    cy.get(catalogElements.inventoryItem).should('have.length', 1);
 
     cy.navigateToCheckout();
     cy.assertOnCheckoutStepOne();
