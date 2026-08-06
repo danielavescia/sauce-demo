@@ -1,4 +1,4 @@
-const { loginElements } = require("../pages/login.elements");
+import { loginElements } from '../pages/login.elements';
 
 Cypress.Commands.add('login', ({username = '', password = ''} = {}) =>{
     cy.visit('/');

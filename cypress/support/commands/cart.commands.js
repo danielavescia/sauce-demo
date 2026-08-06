@@ -1,4 +1,4 @@
-const { cartElements } = require('../pages/cart.elements.js');
+import  { cartElements } from '../pages/cart.elements';
 
 Cypress.Commands.add('assertOnCartPage', () => {
     cy.url().should('contain', '/cart.html');

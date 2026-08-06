@@ -1,4 +1,4 @@
-const{catalogElements} = require("../pages/catalog.elements");
+import { catalogElements } from '../pages/catalog.elements';
 
 Cypress.Commands.add('assertOnCatalogPage', () => {
         cy.url().should('contain', '/inventory')
