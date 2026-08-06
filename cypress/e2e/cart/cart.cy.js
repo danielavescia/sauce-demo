@@ -1,10 +1,10 @@
-import { cartElements } from "../../support/pages/cart.elements";
-
 describe('Cart', () => {
 
     let products = [];
 
     let user;
+
+    let productsQnt;
 
     before(() => {
         cy.fixture('users').then((userData) => {
@@ -14,6 +14,7 @@ describe('Cart', () => {
         cy.fixture('products').then((productsData) => {
             products.push(productsData.backpack);
             products.push(productsData.onesie);
+            productsQnt = products.length;
         });
     });
 
@@ -30,31 +31,20 @@ describe('Cart', () => {
             cy.navigateToCart();
             cy.assertOnCartPage();
 
-            cy.get(cartElements.itemsList).should('have.length', 1);
-            cy.get(cartElements.item).within(() => {
-                cy.get(cartElements.itemName).should('have.text', products[0].name);
-                cy.get(cartElements.itemPrice).should('have.text', products[0].price);
-                cy.get(cartElements.itemDescription).should('have.text', products[0].description)
-            });
+            cy.assertProductQuantityInCart(1);
+            cy.assertProductInCart(products[0]);
         });
 
         it('should display multiple added products in cart', () => {
-            products.forEach((product) => {
-                cy.addProductToCart(product);
-            });
+           cy.addProductsToCart(products)
             
             cy.navigateToCart();
             cy.assertOnCartPage();
 
-            cy.get(cartElements.item).should('have.length', 2);
+            cy.assertProductQuantityInCart(productsQnt);
 
             products.forEach((product) => {
-                cy.contains(cartElements.item, product.name)
-                    .within(() => {
-                        cy.get(cartElements.itemName).should('have.text', product.name);
-                        cy.get(cartElements.itemPrice).should('have.text', product.price);
-                        cy.get(cartElements.itemDescription).should('have.text', product.description)
-                });
+                cy.assertProductInCart(product);
             });  
         });
     });
@@ -66,10 +56,10 @@ describe('Cart', () => {
             cy.navigateToCart();
             cy.assertOnCartPage();
 
-            cy.get(cartElements.item).should('have.length', 1);
+            cy.assertProductQuantityInCart(1);
             
             cy.removeItemFromCart(products[0]);
-            cy.get(cartElements.item).should('have.length', 0);
+            cy.assertProductQuantityInCart(0);
         });
     });
 
@@ -80,10 +70,11 @@ describe('Cart', () => {
             cy.navigateToCart();
             cy.assertOnCartPage();
 
-            cy.get(cartElements.item).should('have.length', 1);
+            cy.assertProductQuantityInCart(1);
             
             cy.reload();
-            cy.get(cartElements.item).should('have.length', 1);
+            cy.assertProductQuantityInCart(1);
+            cy.assertProductInCart(products[0]);
         });
     });
 });

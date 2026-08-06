@@ -19,6 +19,12 @@ Cypress.Commands.add('addProductToCart', (product) => {
         .click();
 });
 
+Cypress.Commands.add('addProductsToCart', (products) => {
+    products.forEach(product => {
+        cy.addProductToCart(product);
+   });
+});
+
 Cypress.Commands.add('assertRemoveButtonVisible', (product) => {
     cy.contains(catalogElements.inventoryItem, product.name)
         .find('button')
