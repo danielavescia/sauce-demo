@@ -1,5 +1,5 @@
-const { checkoutS2Elements } = require("../../support/pages/checkout-s2.elements");
-import { calculateTotal } from '../../support/helpers/helper'
+import  { checkoutS2Elements } from '../../support/pages/checkout-s2.elements';
+import  { calculateTotal } from '../../support/helpers/helper';
 
 describe('Checkout Step 2 - Order Review', () => {
     
@@ -14,7 +14,7 @@ describe('Checkout Step 2 - Order Review', () => {
 
     before(() => {
         cy.fixture('users').then((usersData) => {
-            users = usersData;
+            users = usersData.standard;
         });
         cy.fixture('products').then((productsData)=> {
             product = productsData.backpack;
@@ -22,9 +22,8 @@ describe('Checkout Step 2 - Order Review', () => {
     });
 
     beforeEach(()=> {
-       cy.login({username: users.standard.username,password: users.standard.password});
-       cy.assertOnCatalogPage();
-       cy.goToCheckoutStepTwo(USER_DETAILS);
+       cy.login({username: users.username,password: users.password});
+       cy.goToCheckoutStepTwo(USER_DETAILS, product);
     });
 
     context('when acessing the review step', () => {

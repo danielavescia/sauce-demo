@@ -1,4 +1,4 @@
-exports.loginElements = {
+export const loginElements = {
 
     usernameField: '[data-test="username"]',
     passwordField: '[data-test="password"]',

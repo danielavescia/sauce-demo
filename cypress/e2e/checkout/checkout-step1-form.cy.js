@@ -1,6 +1,7 @@
 describe('Checkout Step 1 - User information', () => {
 
     let user;
+    let product;
 
     const USER_DETAILS = {
         firstName: 'Standard', 
@@ -15,22 +16,25 @@ describe('Checkout Step 1 - User information', () => {
     };
 
     before(() => {
-        cy.fixture('users').then((data) => {
-            user = data;
+        cy.fixture('users').then((userData) => {
+            user = userData.standard;
+        });
+        cy.fixture('products').then((productData) => {
+            product = productData.backpack;
         });
     });
 
     beforeEach(() => {
-        cy.login({username: user.standard.username, password: user.standard.password});
+        cy.login({username: user.username, password: user.password});
         
-        cy.goToCheckoutStepOne();
+        cy.goToCheckoutStepOne(product);
     })
 
     context('when filling fields and submitting the form', () => {
        
         it('should advance to step 2', () => {
             cy.fillAndSubmitCheckoutStep1(USER_DETAILS);
-            cy.url().should('include', '/checkout-step-two.html');
+            cy.assertOnCheckoutStepTwo();
         })
     });
 

@@ -1,4 +1,4 @@
-exports.catalogElements ={
+export const catalogElements ={
     
     inventoryList: '[data-test="inventory-list"]',
     inventoryItem: '[data-test="inventory-item"]',
@@ -6,5 +6,6 @@ exports.catalogElements ={
     productName: '[data-test="inventory-item-name"]',
     productDescription: '[data-test="inventory-item-desc"]',
     productPrice: '[data-test="inventory-item-price"]',
-    addToCartButton: 'button',
+    cartButton: '[data-test="shopping-cart-link"]',
+    qntBadge: '[data-test="shopping-cart-badge"]'
 };
