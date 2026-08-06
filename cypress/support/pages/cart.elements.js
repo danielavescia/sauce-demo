@@ -1,4 +1,4 @@
-exports.cartElements ={
+export const cartElements ={
 
     pageTitle: '[data-test="title"]',
     item: '[data-test="inventory-item"]',

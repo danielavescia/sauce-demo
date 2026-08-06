@@ -1,4 +1,4 @@
-exports.checkoutS2Elements = {
+export const checkoutS2Elements = {
     checkoutS2Title: '[data-test="title"]',
     productList: '[data-test="cart-list"]',
     product: '[data-test="inventory-item"]',

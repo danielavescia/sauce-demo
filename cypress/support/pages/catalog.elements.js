@@ -1,4 +1,4 @@
-exports.catalogElements ={
+export const catalogElements ={
     
     inventoryList: '[data-test="inventory-list"]',
     inventoryItem: '[data-test="inventory-item"]',
