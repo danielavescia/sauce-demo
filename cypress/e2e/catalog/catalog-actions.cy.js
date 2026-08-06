@@ -1,6 +1,7 @@
 describe('Catalog actions', () => {
     let user;
     let products = [];
+    let productsQnt;
 
     before(() =>{
         cy.fixture('users').then((userData) => {
@@ -10,6 +11,7 @@ describe('Catalog actions', () => {
         cy.fixture('products').then((productData) => {
             products.push(productData.backpack);
             products.push(productData.bikeLight);
+            productsQnt = products.length;
         });
     });
 
@@ -20,18 +22,15 @@ describe('Catalog actions', () => {
 
     context('when products are added to cart', () => {
         it('should add product when clicking Add to cart button', () => {
+            cy.addProductsToCart(products);
+            
             products.forEach(product => {
-                cy.addProductToCart(product);
                 cy.assertRemoveButtonVisible(product);
             });
         });
 
         it('should display correct quantity of products in carts badge', () => {
-            let productsQnt = products.length;
-            
-            products.forEach(product => {
-                cy.addProductToCart(product);
-            });
+            cy.addProductsToCart(products);
 
             cy.assertProductQntBadge(productsQnt)
         });
@@ -39,8 +38,9 @@ describe('Catalog actions', () => {
 
      context('when products are removed from cart', () => {
         it('should remove product when clicking Remove button', () => {
+            cy.addProductsToCart(products);
+
             products.forEach(product => {
-                cy.addProductToCart(product);
                 cy.assertRemoveButtonVisible(product);
                 cy.removeProductFromCart(product);
                 cy.assertAddTButtonVisible(product);
@@ -48,18 +48,14 @@ describe('Catalog actions', () => {
         });
 
         it('should display correct quantity of products in carts badge after removal', () => {
-            let productsQnt = products.length;
-            
-            products.forEach(product => {
-                cy.addProductToCart(product);
-            });
+            cy.addProductsToCart(products);
 
             cy.assertProductQntBadge(productsQnt);
 
             products.forEach(product => {
                 cy.removeProductFromCart(product);
             });
-
+            
             cy.assertProductQntBadgeNotVisible();
         });
     });
