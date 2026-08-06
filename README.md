@@ -95,13 +95,19 @@ Arquivo: `cypress/support/helpers/helper.js`
 
 ## Como executar:
 - Instalar dependências:
-´´´ npm install´´´
+```bash
+npm install
+```
 
 - Modo iterativo Cypress
-´´´ npx cypress open´´´
+```bash
+npx cypress open
+```
 
 - Modo headless Cypress
-´´´ npm run cy:run´´´
+```bash
+npm run cy:run
+```
 
 ---
 
