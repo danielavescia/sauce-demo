@@ -50,7 +50,7 @@ describe('Cart', () => {
     });
 
     context('when removing products from cart', () => {
-        it('it should remove', () => {
+        it('it should remove item from cart', () => {
             cy.addProductToCart(products[0]);
             
             cy.navigateToCart();

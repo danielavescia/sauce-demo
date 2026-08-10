@@ -26,7 +26,7 @@ describe('Checkout Step 2 - Order Review', () => {
        cy.goToCheckoutStepTwo(USER_DETAILS, product);
     });
 
-    context('when acessing the review step', () => {
+    context('when accessing the review step', () => {
 
         it('should display selected products with name, description, quantity and price correctly', () => {
             cy.get(checkoutS2Elements.product).within(() => {

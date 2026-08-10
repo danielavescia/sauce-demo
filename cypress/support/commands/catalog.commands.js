@@ -32,7 +32,7 @@ Cypress.Commands.add('assertRemoveButtonVisible', (product) => {
         .and('be.visible')
 });
 
-Cypress.Commands.add('assertAddTButtonVisible', (product) => {
+Cypress.Commands.add('assertAddButtonVisible', (product) => {
    cy.contains(catalogElements.inventoryItem, product.name)
         .find('button')
         .should('have.text', 'Add to cart')

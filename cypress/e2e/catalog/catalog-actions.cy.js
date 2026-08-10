@@ -43,7 +43,7 @@ describe('Catalog actions', () => {
             products.forEach(product => {
                 cy.assertRemoveButtonVisible(product);
                 cy.removeProductFromCart(product);
-                cy.assertAddTButtonVisible(product);
+                cy.assertAddButtonVisible(product);
             });
         });
 
