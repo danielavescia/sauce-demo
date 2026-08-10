@@ -21,3 +21,17 @@ Cypress.Commands.add('assertLoginError', (errorMessage) => {
 
   cy.get(loginElements.errorMessage).should('be.visible').and('contain.text', errorMessage);
 });
+
+Cypress.Commands.add('loginBySession', (user) => {
+  cy.session(
+    [user.username, user.password],
+    () => {
+      cy.login({ username: user.username, password: user.password });
+    },
+    {
+      validate: () => {
+        cy.getCookie('session-username').should('have.property', 'value', user.username);
+      },
+    }
+  );
+});

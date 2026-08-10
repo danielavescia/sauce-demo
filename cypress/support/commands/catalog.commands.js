@@ -5,6 +5,12 @@ Cypress.Commands.add('assertOnCatalogPage', () => {
   cy.get(catalogElements.inventoryList).should('be.visible');
 });
 
+Cypress.Commands.add('navigateToCatalogPage', () => {
+  cy.window().then((win) => {
+    win.location.href = '/inventory.html';
+  });
+});
+
 Cypress.Commands.add('removeProductFromCart', (product) => {
   cy.contains(catalogElements.inventoryItem, product.name)
     .find('button')
