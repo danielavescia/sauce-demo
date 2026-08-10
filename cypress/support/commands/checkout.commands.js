@@ -3,8 +3,11 @@ import { checkoutS1Elements } from '../pages/checkout-s1.elements';
 import { checkoutS2Elements } from '../pages/checkout-s2.elements';
 
 Cypress.Commands.add('goToCheckoutStepOne', (product) => {
+  cy.navigateToCatalogPage();
   cy.assertOnCatalogPage();
+
   cy.addProductToCart(product);
+
   cy.navigateToCart();
   cy.assertOnCartPage();
 

@@ -16,7 +16,10 @@ describe('Catalog', () => {
   });
 
   beforeEach(() => {
-    cy.login({ username: user.username, password: user.password });
+    cy.loginBySession(user);
+
+    cy.navigateToCatalogPage();
+
     cy.assertOnCatalogPage();
   });
 

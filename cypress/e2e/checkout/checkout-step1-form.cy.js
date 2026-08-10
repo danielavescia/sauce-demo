@@ -24,7 +24,7 @@ describe('Checkout Step 1 - User information', () => {
   });
 
   beforeEach(() => {
-    cy.login({ username: user.username, password: user.password });
+    cy.loginBySession(user);
 
     cy.goToCheckoutStepOne(product);
   });

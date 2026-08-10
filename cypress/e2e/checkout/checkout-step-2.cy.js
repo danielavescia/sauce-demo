@@ -8,12 +8,12 @@ describe('Checkout Step 2 - Order Review', () => {
     postalCode: '12345',
   };
 
-  let users;
+  let user;
   let product;
 
   before(() => {
     cy.fixture('users').then((usersData) => {
-      users = usersData.standard;
+      user = usersData.standard;
     });
     cy.fixture('products').then((productsData) => {
       product = productsData.backpack;
@@ -21,7 +21,7 @@ describe('Checkout Step 2 - Order Review', () => {
   });
 
   beforeEach(() => {
-    cy.login({ username: users.username, password: users.password });
+    cy.loginBySession(user);
     cy.goToCheckoutStepTwo(USER_DETAILS, product);
   });
 
