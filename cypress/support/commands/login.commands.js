@@ -35,3 +35,8 @@ Cypress.Commands.add('loginBySession', (user) => {
     }
   );
 });
+
+Cypress.Commands.add('assertOnLoginPage', () => {
+  cy.get(loginElements.submitButton).should('be.visible');
+  cy.url().should('eq', 'https://www.saucedemo.com/');
+});
