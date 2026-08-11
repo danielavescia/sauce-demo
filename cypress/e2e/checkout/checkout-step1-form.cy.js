@@ -7,20 +7,20 @@ describe('Checkout Step 1 - User information', () => {
     postalCodeEmpty: 'Error: Postal Code is required',
   };
 
-  before(() => {
-    cy.fixture('users').then((userData) => {
-      user = userData.standard;
-    });
-
-    cy.fixture('products').then((productData) => {
-      product = productData.backpack;
-    });
-  });
-
   beforeEach(() => {
-    cy.loginBySession(user);
+    cy.fixture('users').then((usersData) => {
+      user = usersData.standard;
+    });
 
-    cy.goToCheckoutStepOne(product);
+    cy.fixture('products').then((productsData) => {
+      product = productsData.backpack;
+    });
+
+    cy.then(() => {
+      cy.loginBySession(user);
+
+      cy.goToCheckoutStepOne(product);
+    });
   });
 
   context('when filling fields and submitting the form', () => {

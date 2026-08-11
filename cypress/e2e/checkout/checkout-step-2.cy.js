@@ -5,18 +5,18 @@ describe('Checkout Step 2 - Order Review', () => {
   let user;
   let product;
 
-  before(() => {
+  beforeEach(() => {
     cy.fixture('users').then((usersData) => {
       user = usersData.standard;
     });
+
     cy.fixture('products').then((productsData) => {
       product = productsData.backpack;
     });
-  });
-
-  beforeEach(() => {
-    cy.loginBySession(user);
-    cy.goToCheckoutStepTwo(user.checkoutDetails, product);
+    cy.then(() => {
+      cy.loginBySession(user);
+      cy.goToCheckoutStepTwo(user.checkoutDetails, product);
+    });
   });
 
   context('when accessing the review step', () => {

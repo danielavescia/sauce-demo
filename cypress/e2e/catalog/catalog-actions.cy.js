@@ -1,24 +1,23 @@
 describe('Catalog actions', () => {
   let user;
-  let products = [];
+  let products;
   let productsQnt;
 
-  before(() => {
-    cy.fixture('users').then((userData) => {
-      user = userData.standard;
+  beforeEach(() => {
+    cy.fixture('users').then((usersData) => {
+      user = usersData.standard;
     });
 
-    cy.fixture('products').then((productData) => {
-      products.push(productData.backpack);
-      products.push(productData.bikeLight);
+    cy.fixture('products').then((productsData) => {
+      products = [productsData.backpack, productsData.bikeLight];
       productsQnt = products.length;
     });
-  });
 
-  beforeEach(() => {
-    cy.loginBySession(user);
-    cy.navigateToCatalogPage();
-    cy.assertOnCatalogPage();
+    cy.then(() => {
+      cy.loginBySession(user);
+      cy.navigateToCatalogPage();
+      cy.assertOnCatalogPage();
+    });
   });
 
   context('when products are added to cart', () => {

@@ -2,25 +2,26 @@ import { catalogElements } from '../../support/pages/catalog.elements';
 
 describe('Catalog', () => {
   let user;
-  let products = [];
+  let products;
   let productsQnt;
 
-  before(() => {
+  beforeEach(() => {
     cy.fixture('users').then((userData) => {
       user = userData.standard;
     });
+
     cy.fixture('products').then((productsData) => {
       products = Object.values(productsData);
       productsQnt = products.length;
     });
-  });
 
-  beforeEach(() => {
-    cy.loginBySession(user);
+    cy.then(() => {
+      cy.loginBySession(user);
 
-    cy.navigateToCatalogPage();
+      cy.navigateToCatalogPage();
 
-    cy.assertOnCatalogPage();
+      cy.assertOnCatalogPage();
+    });
   });
 
   context('when catalog loads', () => {

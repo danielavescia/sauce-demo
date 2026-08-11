@@ -8,7 +8,7 @@ describe('Login', () => {
 
   let users;
 
-  before(() => {
+  beforeEach(() => {
     cy.fixture('users').then((data) => {
       users = data;
     });
