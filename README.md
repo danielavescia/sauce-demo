@@ -114,3 +114,9 @@ npm run cy:run
 ## Observações
 * Testes priorizados com base em risco
 * Foco em fluxos críticos da aplicação
+
+---
+## Segurança
+As credenciais utilizadas nos testes estão armazenadas no arquivo users.json para facilitar a execução dos testes no SauceDemo.
+
+Como o projeto utiliza credenciais públicas de um ambiente de demonstração, essa abordagem é aceitável neste contexto. Em projetos reais, credenciais devem ser armazenadas de forma segura, preferencialmente por meio de variáveis de ambiente.

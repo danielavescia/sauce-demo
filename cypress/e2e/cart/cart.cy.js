@@ -1,80 +1,77 @@
 describe('Cart', () => {
+  let products;
+  let user;
+  let productsQnt;
 
-    let products = [];
-
-    let user;
-
-    let productsQnt;
-
-    before(() => {
-        cy.fixture('users').then((userData) => {
-            user = userData.standard;
-        });
-
-        cy.fixture('products').then((productsData) => {
-            products.push(productsData.backpack);
-            products.push(productsData.onesie);
-            productsQnt = products.length;
-        });
+  beforeEach(() => {
+    cy.fixture('users').then((userData) => {
+      user = userData.standard;
     });
 
-    beforeEach(() => {
-        cy.login({username: user.username, password: user.password})
-        cy.assertOnCatalogPage();
-        cy.assertProductQntBadgeNotVisible();
+    cy.fixture('products').then((productsData) => {
+      products = [productsData.backpack, productsData.bikeLight];
+      productsQnt = products.length;
     });
 
-    context('when products are added to cart', () => {
-        it('should display selected product in cart', () => {
-            cy.addProductToCart(products[0]);
-            
-            cy.navigateToCart();
-            cy.assertOnCartPage();
+    cy.then(() => {
+      cy.loginBySession(user);
+      cy.navigateToCatalogPage();
+      cy.assertOnCatalogPage();
+      cy.assertProductQntBadgeNotVisible();
+    });
+  });
 
-            cy.assertProductQuantityInCart(1);
-            cy.assertProductInCart(products[0]);
-        });
+  context('when products are added to cart', () => {
+    it('should display selected product in cart', () => {
+      cy.addProductToCart(products[0]);
 
-        it('should display multiple added products in cart', () => {
-           cy.addProductsToCart(products)
-            
-            cy.navigateToCart();
-            cy.assertOnCartPage();
+      cy.navigateToCart();
+      cy.assertOnCartPage();
 
-            cy.assertProductQuantityInCart(productsQnt);
-
-            products.forEach((product) => {
-                cy.assertProductInCart(product);
-            });  
-        });
+      cy.assertProductQuantityInCart(1);
+      cy.assertProductInCart(products[0]);
     });
 
-    context('when removing products from cart', () => {
-        it('it should remove', () => {
-            cy.addProductToCart(products[0]);
-            
-            cy.navigateToCart();
-            cy.assertOnCartPage();
+    it('should display multiple added products in cart', () => {
+      cy.addProductsToCart(products);
 
-            cy.assertProductQuantityInCart(1);
-            
-            cy.removeItemFromCart(products[0]);
-            cy.assertProductQuantityInCart(0);
-        });
+      cy.navigateToCart();
+      cy.assertOnCartPage();
+
+      cy.assertProductQuantityInCart(productsQnt);
+
+      products.forEach((product) => {
+        cy.assertProductInCart(product);
+      });
     });
+  });
 
-    context('when cart state changes', () => {
-        it('should keep products in cart after page refresh', () => {
-            cy.addProductToCart(products[0]);
-            
-            cy.navigateToCart();
-            cy.assertOnCartPage();
+  context('when removing products from cart', () => {
+    it('it should remove item from cart', () => {
+      cy.addProductToCart(products[0]);
 
-            cy.assertProductQuantityInCart(1);
-            
-            cy.reload();
-            cy.assertProductQuantityInCart(1);
-            cy.assertProductInCart(products[0]);
-        });
+      cy.navigateToCart();
+      cy.assertOnCartPage();
+
+      cy.assertProductQuantityInCart(1);
+
+      cy.removeItemFromCart(products[0]);
+      cy.assertProductQuantityInCart(0);
     });
+  });
+
+  context('when cart state changes', () => {
+    it('should keep products in cart after page refresh', () => {
+      cy.addProductToCart(products[0]);
+
+      cy.navigateToCart();
+      cy.assertOnCartPage();
+
+      cy.assertProductQuantityInCart(1);
+
+      cy.reload();
+      cy.assertProductQuantityInCart(1);
+      cy.assertProductInCart(products[0]);
+    });
+  });
 });

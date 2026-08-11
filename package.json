@@ -1,12 +1,20 @@
 {
   "name": "sauce-demo",
   "version": "1.0.0",
-  "description": "This project is and e2e test automation suit built with Cypress for the SauceDemo application(https://www.saucedemo.com/). Its main goals is to validate critical user flows covering key functionalities such as user authentication, product listing , cart management and checkout process.",
+  "description": "This project is an e2e test automation suite built with Cypress for the SauceDemo application (https://www.saucedemo.com/). Its main goal is to validate critical user flows covering key functionalities such as user authentication, product listing, cart management and checkout process.",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "cy:run:login": "cypress run --spec 'cypress/e2e/login/**/*.cy.js'",
+    "cy:run:catalog": "cypress run --spec 'cypress/e2e/catalog/**/*.cy.js'",
+    "cy:run:checkout": "cypress run --spec 'cypress/e2e/checkout/**/*.cy.js'",
+    "cy:run:cart": "cypress run --spec 'cypress/e2e/cart/**/*.cy.js'",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [
     "e2e"
@@ -14,6 +22,11 @@
   "author": "Daniela Vescia",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^15.19.0"
+    "cypress": "^15.19.0",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-cypress": "6.4.4",
+    "eslint-plugin-prettier": "^5.5.6",
+    "prettier": "^3.9.6"
   }
 }
