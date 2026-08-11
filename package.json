@@ -7,6 +7,10 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "cy:run:login": "cypress run --spec 'cypress/e2e/login/**/*.cy.js'",
+    "cy:run:catalog": "cypress run --spec 'cypress/e2e/catalog/**/*.cy.js'",
+    "cy:run:checkout": "cypress run --spec 'cypress/e2e/checkout/**/*.cy.js'",
+    "cy:run:cart": "cypress run --spec 'cypress/e2e/cart/**/*.cy.js'",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
