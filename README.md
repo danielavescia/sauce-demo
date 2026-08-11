@@ -71,6 +71,16 @@ Arquivo: `cypress/support/helpers/helper.js`
 - Validação de mensagens de erro
 
 ---
+### Logout
+- Logout a partir da página do catálogo
+- Invalidação do cookie após logout
+- Bloqueio de rotas protegidas após logout c/ validação de mensagem de erro
+- Bloqueio de retorno à página protegida via botão "voltar" do navegador após logout
+- Login novamente após logout com o mesmo usuário
+
+**Obs:** Comportamento atual da aplicação não reseta os dados do local storage  após logout
+
+---
 
 ### Catálogo
 - Listagem de produtos
