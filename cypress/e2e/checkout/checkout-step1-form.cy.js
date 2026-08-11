@@ -1,13 +1,6 @@
 describe('Checkout Step 1 - User information', () => {
   let user;
   let product;
-
-  const USER_DETAILS = {
-    firstName: 'Standard',
-    lastName: 'User',
-    postalCode: '12345',
-  };
-
   const ERRORS = {
     firstNameEmpty: 'Error: First Name is required',
     lastNameEmpty: 'Error: Last Name is required',
@@ -18,6 +11,7 @@ describe('Checkout Step 1 - User information', () => {
     cy.fixture('users').then((userData) => {
       user = userData.standard;
     });
+
     cy.fixture('products').then((productData) => {
       product = productData.backpack;
     });
@@ -31,16 +25,20 @@ describe('Checkout Step 1 - User information', () => {
 
   context('when filling fields and submitting the form', () => {
     it('should advance to step 2', () => {
-      cy.fillAndSubmitCheckoutStep1(USER_DETAILS);
+      cy.fillAndSubmitCheckoutStep1({
+        firstName: user.checkoutDetails.firstName,
+        lastName: user.checkoutDetails.lastName,
+        postalCode: user.checkoutDetails.postalCode,
+      });
       cy.assertOnCheckoutStepTwo();
     });
   });
 
   context('when required fields are missing', () => {
-    it('should not proceed to step 2 and error when first name is missing', () => {
+    it('should not proceed to step 2 and show error when first name is missing', () => {
       cy.fillAndSubmitCheckoutStep1({
-        lastName: USER_DETAILS.lastName,
-        postalCode: USER_DETAILS.postalCode,
+        lastName: user.checkoutDetails.lastName,
+        postalCode: user.checkoutDetails.postalCode,
       });
 
       cy.assertCheckoutStepOneError(ERRORS.firstNameEmpty);
@@ -48,8 +46,8 @@ describe('Checkout Step 1 - User information', () => {
 
     it('should not proceed to step 2 and show error when last name is missing', () => {
       cy.fillAndSubmitCheckoutStep1({
-        firstName: USER_DETAILS.firstName,
-        postalCode: USER_DETAILS.postalCode,
+        firstName: user.checkoutDetails.firstName,
+        postalCode: user.checkoutDetails.postalCode,
       });
 
       cy.assertCheckoutStepOneError(ERRORS.lastNameEmpty);
@@ -57,8 +55,8 @@ describe('Checkout Step 1 - User information', () => {
 
     it('should not proceed to step 2 and show error when postal code is missing', () => {
       cy.fillAndSubmitCheckoutStep1({
-        firstName: USER_DETAILS.firstName,
-        lastName: USER_DETAILS.lastName,
+        firstName: user.checkoutDetails.firstName,
+        lastName: user.checkoutDetails.lastName,
       });
 
       cy.assertCheckoutStepOneError(ERRORS.postalCodeEmpty);

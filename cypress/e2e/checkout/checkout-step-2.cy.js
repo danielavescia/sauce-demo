@@ -2,12 +2,6 @@ import { checkoutS2Elements } from '../../support/pages/checkout-s2.elements';
 import { calculateTotal } from '../../support/helpers/helper';
 
 describe('Checkout Step 2 - Order Review', () => {
-  const USER_DETAILS = {
-    firstName: 'Standard',
-    lastName: 'User',
-    postalCode: '12345',
-  };
-
   let user;
   let product;
 
@@ -22,7 +16,7 @@ describe('Checkout Step 2 - Order Review', () => {
 
   beforeEach(() => {
     cy.loginBySession(user);
-    cy.goToCheckoutStepTwo(USER_DETAILS, product);
+    cy.goToCheckoutStepTwo(user.checkoutDetails, product);
   });
 
   context('when accessing the review step', () => {
