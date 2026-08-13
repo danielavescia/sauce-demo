@@ -8,5 +8,6 @@ export const checkoutS2Elements = {
   productPrice: '[data-test="inventory-item-price"]',
   subtotal: '[data-test="subtotal-label"]',
   total: '[data-test="total-label"]',
+  tax: '[data-test="tax-label"]',
   finishButton: '[data-test="finish"]',
 };

@@ -1,6 +1,7 @@
 import { catalogElements } from '../pages/catalog.elements';
 import { checkoutS1Elements } from '../pages/checkout-s1.elements';
 import { checkoutS2Elements } from '../pages/checkout-s2.elements';
+import { calculateTax, calculateTotal, parsePriceToFloat } from '../helpers/helper';
 
 Cypress.Commands.add('goToCheckoutStepOne', (product) => {
   cy.navigateToCatalogPage();
@@ -46,4 +47,34 @@ Cypress.Commands.add('assertOnCheckoutStepOne', () => {
 Cypress.Commands.add('assertOnCheckoutStepTwo', () => {
   cy.url().should('contain', '/checkout-step-two.html');
   cy.get(checkoutS2Elements.checkoutS2Title).should('have.text', 'Checkout: Overview');
+});
+
+Cypress.Commands.add('verifyCheckoutProduct', (product) => {
+  cy.get(checkoutS2Elements.product).within(() => {
+    cy.get(checkoutS2Elements.productName).should('have.text', product.name);
+
+    cy.get(checkoutS2Elements.productDescription).should('have.text', product.description);
+
+    cy.get(checkoutS2Elements.productPrice).should('have.text', product.price);
+
+    cy.get(checkoutS2Elements.productQnt).should('have.text', '1');
+  });
+});
+
+Cypress.Commands.add('assertSubtotal', (product) => {
+  cy.get(checkoutS2Elements.subtotal).should('contain', product.price);
+});
+
+Cypress.Commands.add('assertTotal', (product) => {
+  cy.get(checkoutS2Elements.total).should('contain', calculateTotal(product.price));
+});
+
+Cypress.Commands.add('assertTax', (product) => {
+  cy.get(checkoutS2Elements.tax).should('contain', calculateTax(parsePriceToFloat(product.price)));
+});
+
+Cypress.Commands.add('assertOnConfirmationPage', () => {
+  cy.get(checkoutS2Elements.finishButton).click();
+  cy.url().should('contain', '/checkout-complete.html');
+  cy.get('[data-test="complete-header"]').should('have.text', 'Thank you for your order!');
 });
