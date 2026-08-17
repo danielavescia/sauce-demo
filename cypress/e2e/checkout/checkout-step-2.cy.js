@@ -33,7 +33,7 @@ describe('Checkout Step 2 - Order Review', () => {
       cy.assertTax(product);
     });
 
-    it('should complete purchase and redirect to confirmation page', () => {
+    it('should complete purchase and redirect to confirmation page', { tags: '@smoke' }, () => {
       cy.assertOnConfirmationPage();
     });
   });

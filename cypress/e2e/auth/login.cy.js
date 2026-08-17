@@ -15,7 +15,7 @@ describe('Login', () => {
   });
 
   context('with valid user', () => {
-    it('should login with valid user', () => {
+    it('should login with valid user', { tags: '@smoke' }, () => {
       cy.login({ username: users.standard.username, password: users.standard.password });
       cy.assertOnCatalogPage();
       cy.getCookie('session-username').should('have.property', 'value', 'standard_user');
