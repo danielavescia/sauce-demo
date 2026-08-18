@@ -10,7 +10,6 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout do código
         uses: actions/checkout@v4
 
@@ -28,7 +27,7 @@ jobs:
 
       - name: Verificar formatação c/ Prettier
         run: npm run format:check
-          
+
       - name: Rodar testes Cypress
         uses: cypress-io/github-action@v6
         with:
