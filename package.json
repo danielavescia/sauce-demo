@@ -8,6 +8,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "test:smoke": "npx cypress run --expose grepTags=@smoke,grepOmitFiltered=true",
+    "test:regression": "npx cypress run --expose grepTags=-@smoke,grepOmitFiltered=true",
     "cy:run:auth": "cypress run --spec 'cypress/e2e/auth/**/*.cy.js'",
     "cy:run:catalog": "cypress run --spec 'cypress/e2e/catalog/**/*.cy.js'",
     "cy:run:checkout": "cypress run --spec 'cypress/e2e/checkout/**/*.cy.js'",

@@ -38,6 +38,7 @@ jobs:
             exit 1
           fi
           echo "Aplicação no ar."
+
   smoke:
     runs-on: ubuntu-latest
     needs: health-check
@@ -69,11 +70,8 @@ jobs:
       - name: Setup Node
         uses: ./.github/actions/setup
 
-      - name: Rodar testes Cypress
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-          headless: true
+      - name: Rodar testes regressão
+        run: npm run test:regression
 
       - name: Upload screenshot da falha
         uses: actions/upload-artifact@v4
