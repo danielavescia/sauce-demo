@@ -1,0 +1,44 @@
+name: E2E Cypress Tesstes - Sauce Demo
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Rodar ESLint
+        run: npm run lint
+
+      - name: Verificar formatação c/ Prettier
+        run: npm run format:check
+          
+      - name: Rodar testes Cypress
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          headless: true
+
+      - name: Upload screenshot da falha
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore
