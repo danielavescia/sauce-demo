@@ -7,7 +7,7 @@ on:
     branches:
       - main
 env:
-    APP_URL: https://www.saucedemo.com/
+  APP_URL: https://www.saucedemo.com/
 
 jobs:
   lint:
@@ -34,21 +34,20 @@ jobs:
   health-check:
     runs-on: ubuntu-latest
     steps:
-        - name: Verificar se aplicação está disponível
-          run: |
-            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$APP_URL")
-            echo "Status http response: $STATUS"
-            if [ "$STATUS" -ne 200 ]; then
-              echo "Aplicação não disponível, status encontrado: $STATUS"
-              exit 1
-            fi
-            echo "Aplicação no ar."
+      - name: Verificar se aplicação está disponível
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$APP_URL")
+          echo "Status http response: $STATUS"
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Aplicação não disponível, status encontrado: $STATUS"
+            exit 1
+          fi
+          echo "Aplicação no ar."
 
   cypress-run:
     runs-on: ubuntu-latest
     needs: [lint, health-check]
     steps:
-
       - name: Checkout do código
         uses: actions/checkout@v4
 
