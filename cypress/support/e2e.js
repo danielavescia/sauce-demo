@@ -1,4 +1,5 @@
 import { register as registerCypressGrep } from '@cypress/grep';
+import 'allure-cypress';
 import './commands/login.commands.js';
 import './commands/catalog.commands.js';
 import './commands/checkout.commands.js';
