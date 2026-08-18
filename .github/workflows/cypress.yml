@@ -79,7 +79,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Rodar testes regressão
-        run: npm run cy:${{ matrix.suite }}
+        run: npm run cy:run:${{ matrix.suite }}
 
       - name: Upload screenshot da falha
         uses: actions/upload-artifact@v4
