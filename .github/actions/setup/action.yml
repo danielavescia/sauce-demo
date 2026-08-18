@@ -4,9 +4,6 @@ description: Configura Node v22 e instala as dependências
 runs:
   using: composite
   steps:
-    - name: Checkout do código
-      uses: actions/checkout@v4
-
     - name: Instalar Node
       uses: actions/setup-node@v4
       with:
