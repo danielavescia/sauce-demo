@@ -1,40 +1,40 @@
 name: Report Allure
 description: Junção de reports e Deploy no Github Pages
 
-on: 
-    workflow_run:
-        workflows: [E2E Cypress Testes - Sauce Demo]
-        types: [completed]
+on:
+  workflow_run:
+    workflows: [E2E Cypress Testes - Sauce Demo]
+    types: [completed]
 permissions:
   actions: read
   contents: write
-  pages: write 
+  pages: write
 
 jobs:
-    report:
-        runs-on: ubuntu-latest
-        if: github.event.workflow_run.conclusion != 'cancelled'
-        
-        steps:
-            - name: Baixar resultados
-              uses: actions/download-artifact@v4
-              with:
-                pattern: allure-*
-                path: allure-results
-                merge-multiple: true
-                run-id: ${{ github.event.workflow_run.id }}
-                github-token: ${{ secrets.GITHUB_TOKEN }}
+  report:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion != 'cancelled'
 
-            - name:  Build e Unificação do report
-              uses: allure-framework/allure-action@v0
-              with:
-                allure-results: allure-results 
-                allure-report: allure-report
-                gh-pages: gh-pages
+    steps:
+      - name: Baixar resultados
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-*
+          path: allure-results
+          merge-multiple: true
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-            - name: Deploy do reporte unificado no Github Pages
-              if: always()
-              uses: peaceiris/actions-gh-pages@v4
-              with:
-                github-token: ${{ secrets.GITHUB_TOKEN }}
-                publish_dir: ./allure-report
+      - name: Build e Unificação do report
+        uses: allure-framework/allure-action@v0
+        with:
+          allure-results: allure-results
+          allure-report: allure-report
+          gh-pages: gh-pages
+
+      - name: Deploy do reporte unificado no Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
