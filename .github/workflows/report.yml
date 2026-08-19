@@ -16,6 +16,14 @@ jobs:
     if: github.event.workflow_run.conclusion != 'cancelled'
 
     steps:
+      - name: Baixar histórico da branch gh
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
       - name: Baixar resultados
         uses: actions/download-artifact@v4
         with:
@@ -26,15 +34,16 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build e Unificação do report
-        uses: allure-framework/allure-action@v0
+        uses: simple-elf/allure-report-action@v1.11
+        if: always()
         with:
-          allure-results: allure-results
-          allure-report: allure-report
-          gh-pages: gh-pages
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 5
 
       - name: Deploy do reporte unificado no Github Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-history
