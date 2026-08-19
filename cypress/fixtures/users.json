@@ -1,16 +1,16 @@
 {
-    "standard" : {
-        "username": "standard_user",
-        "password": "secret_sauce",
-        "checkoutDetails": {
-            "firstName": "Standard",
-            "lastName": "User",
-            "postalCode": "12345"
-        }
-    },
-    
-    "lockedOut":{
-        "username": "locked_out_user",
-        "password": "secret_sauce"
+  "standard": {
+    "username": "standard_user",
+    "password": "secret_sauce",
+    "checkoutDetails": {
+      "firstName": "Standard",
+      "lastName": "User",
+      "postalCode": "12345"
     }
+  },
+
+  "lockedOut": {
+    "username": "locked_out_user",
+    "password": "secret_sauce"
+  }
 }

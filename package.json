@@ -7,9 +7,10 @@
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:run:auth": "cypress run --spec 'cypress/e2e/auth/**/*.cy.js'",
+    "test:smoke": "npx cypress run --expose grepTags=@smoke,grepOmitFiltered=true",
+    "cy:run:auth": "cypress run --spec 'cypress/e2e/auth/**/*.cy.js' --expose grepTags=-@smoke,grepOmitFiltered=true",
     "cy:run:catalog": "cypress run --spec 'cypress/e2e/catalog/**/*.cy.js'",
-    "cy:run:checkout": "cypress run --spec 'cypress/e2e/checkout/**/*.cy.js'",
+    "cy:run:checkout": "cypress run --spec 'cypress/e2e/checkout/**/*.cy.js' --expose grepTags=-@smoke,grepOmitFiltered=true",
     "cy:run:cart": "cypress run --spec 'cypress/e2e/cart/**/*.cy.js'",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -22,6 +23,8 @@
   "author": "Daniela Vescia",
   "license": "ISC",
   "devDependencies": {
+    "@cypress/grep": "^6.0.3",
+    "allure-cypress": "^3.10.2",
     "cypress": "^15.19.0",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",

@@ -1,0 +1,15 @@
+name: Setup Node
+description: Configura Node v22 e instala as dependências
+
+runs:
+  using: composite
+  steps:
+    - name: Instalar Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: npm
+
+    - name: Instalar dependencias
+      shell: bash
+      run: npm ci

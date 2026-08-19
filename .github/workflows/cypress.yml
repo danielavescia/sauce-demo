@@ -1,0 +1,88 @@
+name: E2E Cypress Testes - Sauce Demo
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+env:
+  APP_URL: https://www.saucedemo.com/
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/actions/setup
+
+      - name: Rodar ESLint
+        run: npm run lint
+
+      - name: Verificar formatação c/ Prettier
+        run: npm run format:check
+
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar se aplicação está disponível
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$APP_URL")
+          echo "Status http response: $STATUS"
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Aplicação não disponível, status encontrado: $STATUS"
+            exit 1
+          fi
+          echo "Aplicação no ar."
+
+  smoke:
+    runs-on: ubuntu-latest
+    needs: health-check
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/actions/setup
+
+      - name: Rodar testes smoke
+        run: npm run test:smoke
+
+      - name: Resultados Allure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-smoke
+          path: allure-results
+
+  regression:
+    runs-on: ubuntu-latest
+    needs: smoke
+
+    strategy:
+      matrix:
+        suite:
+          - auth
+          - catalog
+          - checkout
+          - cart
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: ./.github/actions/setup
+
+      - name: Rodar testes regressão
+        run: npm run cy:run:${{ matrix.suite }}
+
+      - name: Resultados Allure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-regression-${{ matrix.suite }}
+          path: allure-results
