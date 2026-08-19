@@ -1,4 +1,4 @@
-name: E2E Cypress Tesstes - Sauce Demo
+name: E2E Cypress Testes - Sauce Demo
 
 on:
   push:
@@ -52,13 +52,12 @@ jobs:
       - name: Rodar testes smoke
         run: npm run test:smoke
 
-      - name: Upload screenshot da falha
+      - name: Resultados Allure
+        if: always()
         uses: actions/upload-artifact@v4
-        if: failure()
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore
+          name: allure-smoke
+          path: allure-results
 
   regression:
     runs-on: ubuntu-latest
@@ -81,10 +80,9 @@ jobs:
       - name: Rodar testes regressão
         run: npm run cy:run:${{ matrix.suite }}
 
-      - name: Upload screenshot da falha
+      - name: Resultados Allure
+        if: always()
         uses: actions/upload-artifact@v4
-        if: failure()
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-          if-no-files-found: ignore
+          name: allure-regression-${{ matrix.suite }}
+          path: allure-results
