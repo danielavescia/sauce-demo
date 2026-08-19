@@ -33,13 +33,28 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build e Unificação do report
-        uses: simple-elf/allure-report-action@v1.11
-        if: always()
+      - name: Instalar Java
+        uses: actions/setup-java@v4
         with:
-          allure_results: allure-results
-          allure_history: allure-history
-          keep_reports: 5
+          distribution: temurin
+          java-version: '17'
+
+      - name: Instalar Allure CLI
+        run: |
+          npm install -g allure-commandline
+
+      - name: Preparar histórico
+        run: |
+          mkdir -p allure-history
+
+          if [ -d "gh-pages/history" ]; then
+            cp -R gh-pages/history allure-history/
+          fi
+
+      - name: Gerar relatório Allure
+        run: |
+          allure generate allure-results \
+            -o allure-history
 
       - name: Deploy do reporte unificado no Github Pages
         if: always()
