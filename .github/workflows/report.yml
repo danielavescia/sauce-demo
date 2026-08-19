@@ -4,6 +4,7 @@ on:
   workflow_run:
     workflows: [E2E Cypress Testes - Sauce Demo]
     types: [completed]
+
 permissions:
   actions: read
   contents: write
@@ -22,7 +23,7 @@ jobs:
           path: allure-results
           merge-multiple: true
           run-id: ${{ github.event.workflow_run.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build e Unificação do report
         uses: allure-framework/allure-action@v0
@@ -35,5 +36,5 @@ jobs:
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
