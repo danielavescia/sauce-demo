@@ -1,5 +1,4 @@
 name: Report Allure
-description: Junção de reports e Deploy no Github Pages
 
 on:
   workflow_run:
