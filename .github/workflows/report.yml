@@ -45,11 +45,9 @@ jobs:
 
       - name: Preparar histórico
         run: |
-          mkdir -p allure-history
-
           if [ -d "gh-pages/history" ]; then
-          --clean
-            cp -R gh-pages/history allure-history/
+            mkdir -p allure-results/history
+            cp -R gh-pages/history/*  allure-results/history/
           fi
 
       - name: Gerar relatório Allure
