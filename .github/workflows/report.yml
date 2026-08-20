@@ -48,13 +48,15 @@ jobs:
           mkdir -p allure-history
 
           if [ -d "gh-pages/history" ]; then
+          --clean
             cp -R gh-pages/history allure-history/
           fi
 
       - name: Gerar relatório Allure
         run: |
           allure generate allure-results \
-            -o allure-history
+            -o allure-history \
+            --clean
 
       - name: Deploy do reporte unificado no Github Pages
         if: always()
