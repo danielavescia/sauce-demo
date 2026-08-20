@@ -1,9 +1,6 @@
 name: E2E Cypress Testes - Sauce Demo
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
