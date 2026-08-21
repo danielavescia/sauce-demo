@@ -177,6 +177,13 @@ graph LR
 | **Smoke**        | Roda os testes críticos para o negócio (login e fluxo de compra)                                                                         | Health Check                               |
 | **Regression**   | Suíte completa de regressão, dividida em 4 sub-jobs paralelos por matriz de acordo com a feature (`auth`, `catalog`, `checkout`, `cart`) | Smoke                                      |
 
+**Worfkflow Cypress**
+![Worfkflow Cypress](image.png)
+
+**Workflow Report**
+![Workflow Report](image-1.png)
+
+
 ### Deploy do Allure Report
 
 Os testes **Smoke** e cada suíte da **Regression** salvam seus resultados, mesmo se falharem no workflow. Ao final do workflow do `Cypress` é disparado automaticamente o workflow `report`, que une os resultados em um único relatório e o publica no GitHub Pages.
