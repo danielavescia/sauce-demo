@@ -183,7 +183,6 @@ graph LR
 **Workflow Report**
 ![Workflow Report](image-1.png)
 
-
 ### Deploy do Allure Report
 
 Os testes **Smoke** e cada suíte da **Regression** salvam seus resultados, mesmo se falharem no workflow. Ao final do workflow do `Cypress` é disparado automaticamente o workflow `report`, que une os resultados em um único relatório e o publica no GitHub Pages.
