@@ -154,6 +154,7 @@ As credenciais utilizadas nos testes estão armazenadas no arquivo users.json pa
 Como o projeto utiliza credenciais públicas de um ambiente de demonstração, essa abordagem é aceitável neste contexto. Em projetos reais, credenciais devem ser armazenadas de forma segura, preferencialmente por meio de variáveis de ambiente.
 
 # Pipeline CI/CD
+
 Pipelina roda a cada PR para branch `main`, com jobs organizados para dar feedback rápido e só investir tempo em testes pesado quando as validações básicas passarem.
 
 ```mermaid
@@ -168,12 +169,14 @@ graph LR
 ```
 
 ### Jobs
-| Job | Responsabilidade | Depende de |
-|---|---|---|
-| **Lint** | ESLint + Prettier — valida padrão e formatação do código | Nenhum (roda em paralelo com Health Check) |
-| **Health Check** | Faz um `curl` na `APP_URL` e verifica se retorna HTTP 200 antes de rodar qualquer teste E2E | Nenhum |
-| **Smoke** | Roda os testes críticos para o negócio (login e fluxo de compra) | Health Check |
-| **Regression** | Suíte completa de regressão, dividida em 4 sub-jobs paralelos por matriz de acordo com a feature (`auth`, `catalog`, `checkout`, `cart`) | Smoke |
+
+| Job              | Responsabilidade                                                                                                                         | Depende de                                 |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| **Lint**         | ESLint + Prettier — valida padrão e formatação do código                                                                                 | Nenhum (roda em paralelo com Health Check) |
+| **Health Check** | Faz um `curl` na `APP_URL` e verifica se retorna HTTP 200 antes de rodar qualquer teste E2E                                              | Nenhum                                     |
+| **Smoke**        | Roda os testes críticos para o negócio (login e fluxo de compra)                                                                         | Health Check                               |
+| **Regression**   | Suíte completa de regressão, dividida em 4 sub-jobs paralelos por matriz de acordo com a feature (`auth`, `catalog`, `checkout`, `cart`) | Smoke                                      |
 
 ### Deploy do Allure Report
+
 Os testes **Smoke** e cada suíte da **Regression** salvam seus resultados, mesmo se falharem no workflow. Ao final do workflow do `Cypress` é disparado automaticamente o workflow `report`, que une os resultados em um único relatório e o publica no GitHub Pages.
