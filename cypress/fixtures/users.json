@@ -14,7 +14,7 @@
     "password": "secret_sauce"
   },
 
-   "problem": {
+  "problem": {
     "username": "problem_user",
     "password": "secret_sauce",
     "checkoutDetails": {

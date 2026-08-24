@@ -18,13 +18,17 @@ describe('Checkout - known bugs', () => {
   });
 
   context('when the problem_user fills checkout step 1 information', () => {
-    it('it not allow entering Last Name, not advancing to checktou step 2', () => {
-      cy.fillAndSubmitCheckoutStep1({
-        firstName: user.checkoutDetails.firstName,
-        lastName: user.checkoutDetails.lastName,
-        postalCode: user.checkoutDetails.postalCode,
-      });
-      cy.assertOnCheckoutStepTwo();
-    });
+    it(
+      'it not allow entering Last Name, not advancing to checktou step 2',
+      { tags: '@bug' },
+      () => {
+        cy.fillAndSubmitCheckoutStep1({
+          firstName: user.checkoutDetails.firstName,
+          lastName: user.checkoutDetails.lastName,
+          postalCode: user.checkoutDetails.postalCode,
+        });
+        cy.assertOnCheckoutStepTwo();
+      }
+    );
   });
 });
