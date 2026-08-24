@@ -61,6 +61,7 @@ jobs:
     needs: smoke
 
     strategy:
+      fail-fast: false
       matrix:
         suite:
           - auth
