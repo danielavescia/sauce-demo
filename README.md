@@ -166,6 +166,7 @@ graph LR
     D --> F{Suite: catalog}
     D --> G{Suite: checkout}
     D --> H{Suite: cart}
+    D ---> I[Bug Known]
 ```
 
 ### Jobs
@@ -176,6 +177,7 @@ graph LR
 | **Health Check** | Faz um `curl` na `APP_URL` e verifica se retorna HTTP 200 antes de rodar qualquer teste E2E                                              | Nenhum                                     |
 | **Smoke**        | Roda os testes críticos para o negócio (login e fluxo de compra)                                                                         | Health Check                               |
 | **Regression**   | Suíte completa de regressão, dividida em 4 sub-jobs paralelos por matriz de acordo com a feature (`auth`, `catalog`, `checkout`, `cart`) | Smoke                                      |
+| **Bug Known**    | Roda teste que documenta bugs conhecidos com `problem_user`                                                                              | Smoke                                      |
 
 **Worfkflow Cypress**
 ![Worfkflow Cypress](image.png)
@@ -186,3 +188,10 @@ graph LR
 ### Deploy do Allure Report
 
 Os testes **Smoke** e cada suíte da **Regression** salvam seus resultados, mesmo se falharem no workflow. Ao final do workflow do `Cypress` é disparado automaticamente o workflow `report`, que une os resultados em um único relatório e o publica no GitHub Pages.
+
+---
+
+## Bugs conhecidos
+
+Durante o mapeamento da aplicação utilizando o usuário `problem_user` foi identificado bug na aplicação. Esse bug é coberto por testes automatizado propositalmente falhos, para documentar o comportamente incorreto e servir como base p/ bug report.
+[Bug report - 001](https://github.com/danielavescia/sauce-demo/issues/23)
