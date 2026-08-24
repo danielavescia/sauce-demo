@@ -96,7 +96,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Rodar testes c/ bug conhecido
-        run: cy:run:bug
+        run: npm run cy:run:bug
         continue-on-error: true
 
       - name: Resultados Allure
