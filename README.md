@@ -193,6 +193,10 @@ Os testes **Smoke** e cada suíte da **Regression** salvam seus resultados, mesm
 
 ## Bugs conhecidos
 
-Durante o mapeamento da aplicação utilizando o usuário `problem_user` foi identificado bug na aplicação. Esse bug é coberto por testes automatizado propositalmente falhos, para documentar o comportamente incorreto e servir como base p/ bug report.
-![Report Allure](image-2.png)
-[Bug report - 001](https://github.com/danielavescia/sauce-demo/issues/23)
+Durante o mapeamento da aplicação utilizando os usuários `problem_user` `visual_user` e `error_user` foram identificados bugs na aplicação. Para organizar os comportamentos identificados durante os testes, foi criada uma issue principal para cada tipo de usuário da aplicação. Dentro de cada issue principal, foram criadas sub-issues para documentar individualmente os bugs relacionados ao respectivo perfil de usuário.
+
+[Bugs report - Problem User](https://github.com/danielavescia/sauce-demo/issues/32)
+[Bugs report - Error User](https://github.com/danielavescia/sauce-demo/issues/33)
+[Bugs report - Visual User](https://github.com/danielavescia/sauce-demo/issues/34)
+
+![Report Allure](image-3.png)
