@@ -9,7 +9,7 @@
     "cy:run": "cypress run",
     "test:smoke": "npx cypress run --expose grepTags=@smoke,grepOmitFiltered=true",
     "cy:run:auth": "cypress run --spec 'cypress/e2e/auth/**/*.cy.js' --expose grepTags=-@smoke,grepOmitFiltered=true",
-    "cy:run:catalog": "cypress run --spec 'cypress/e2e/catalog/**/*.cy.js'",
+    "cy:run:catalog": "cypress run --spec 'cypress/e2e/catalog/**/*.cy.js' --expose grepTags=-@bug,grepOmitFiltered=true",
     "cy:run:checkout": "cypress run --spec 'cypress/e2e/checkout/**/*.cy.js' --expose grepTags=-@smoke+-@bug,grepOmitFiltered=true",
     "cy:run:cart": "cypress run --spec 'cypress/e2e/cart/**/*.cy.js'",
     "cy:run:bug": "cypress run --expose grepTags=@bug,grepOmitFiltered=true",
