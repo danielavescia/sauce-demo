@@ -21,7 +21,7 @@ describe('Catalog - known bugs', () => {
   });
 
   context('when catalog loads for the visual', () => {
-    it('it doenst display the expected product price', () => {
+    it('it doenst display the expected product price', { tags: '@bug' }, () => {
       products.forEach((product) => {
         cy.contains(catalogElements.inventoryItem, product.name).within(() => {
           cy.get(catalogElements.productName).should('have.text', product.name);
