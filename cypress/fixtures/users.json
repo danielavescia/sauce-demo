@@ -22,5 +22,10 @@
       "lastName": "User",
       "postalCode": "12345"
     }
+  },
+  
+  "visual": {
+    "username": "visual_user",
+    "password": "secret_sauce"
   }
 }
